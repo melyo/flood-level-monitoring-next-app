@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../test.db"
+}
+
+model Sensor {
+  id            Int       @id @default(autoincrement())
+  name          String
+  code          String    @unique
+  status        String?
+  latestReading Float?
+  lastReadAt    DateTime?
+  avgToday      Float?
+  avgCount      Int?
+  avgAt         DateTime?
+  readings      Reading[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Reading {
+  id        Int       @id @default(autoincrement())
+  value     Float
+  sensor    Sensor    @relation(fields: [sensorId], references: [id])
+  sensorId  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}

@@ -1,0 +1,9 @@
+services:
+  sqlite-web:
+    image: coleifer/sqlite-web
+    environment:
+      - SQLITE_DATABASE=test.db
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/data
